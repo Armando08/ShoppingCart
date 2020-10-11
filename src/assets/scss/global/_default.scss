@@ -20,6 +20,7 @@ body{
   color: $body-text-color;
   position: relative;
   background-color: $body-bg-color;
+  margin: 0;
 
   &.no-overflow{
     overflow: hidden;
