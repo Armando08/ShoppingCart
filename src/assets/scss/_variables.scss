@@ -1,0 +1,50 @@
+$theme-color-6: #e84855;
+$theme-color--default: #5945e6;
+$theme-color--heading: #2e3280;
+$theme-color--black: #333333;
+$theme-color--green: #38cb89;
+$theme-color-sub--heading: #6d70a6;
+$transition--default: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+
+// Gradients
+$gradient--secondary: linear-gradient(-180deg,#fff 0,#eceefa 100%);
+$gray-gradient: -webkit-linear-gradient(top,#FFF 0,#F6F5F9 74%,#F6F5F9 100%);
+
+
+// Font Family
+$font-family-name: Rubik, Helvetica, Arial, sans-serif;
+$heading-font-family-name: Rubik, Helvetica, Arial, sans-serif;
+
+// Colors
+$white: #ffffff;
+$black: #000000;
+
+// Body Text
+$body-text-color: #504f4f;
+$body-font-weight: 400;
+$body-line-height: 1.74;
+$body-font-size: 15px;
+$body-bg-color: $white;
+
+// Heading Text
+$heading-text-color: $theme-color--heading;
+$heading-font-weight: 500;
+
+// Other Colors
+$primary:       #004395;
+$secondary:     #f9c322;
+$success:       #28a745;
+$info:          #17a2b8;
+$warning:       #ffc107;
+$danger:        #dc3545;
+$light:         #f8f9fa;
+
+
+// Responsive Variables
+$xlmax-device: 'only screen and (min-width: 1200px) and (max-width: 1599.98px)';
+$laptop-device: 'only screen and (min-width: 1200px) and (max-width: 1499px)';
+$desktop-device: 'only screen and (min-width: 992px) and (max-width: 1199px)';
+$tablet-device:'only screen and (min-width: 768px) and (max-width: 991px)';
+$large-mobile:'only screen and (max-width: 767px)';
+$small-mobile: 'only screen and (max-width: 575px)';
+$extra-small-mobile: 'only screen and (max-width: 479px)';
