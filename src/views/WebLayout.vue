@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <app-header />
-    <item />
+    <item v-for="item in this.itemData" :key="item.uuid" :itemData="item" />
     <app-footer />
   </div>
 </template>
@@ -19,7 +19,8 @@ export default {
   },
   data() {
     return {
-      responseData: {},
+      responseData: [],
+      itemData: [],
     }
   },
   mounted() {
@@ -38,6 +39,12 @@ export default {
       .then(response => response.json())
       .then(response => {
         this.responseData = response
+        this.itemData = this.responseData.map(item => ({
+          about: item.about,
+          title: item.title,
+          cover_image_url: item.cover_image_url,
+          retail_price: item.retail_price,
+        }))
       })
   },
 }
