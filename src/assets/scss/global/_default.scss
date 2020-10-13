@@ -44,7 +44,7 @@ h1,
     @media #{$tablet-device}{
       font-size: 40px;
     }
-    @media #{$large-mobile}{
+    @media #{$small-mobile}{
       font-size: 34px;
     }
   }
@@ -57,7 +57,7 @@ h2,
     @media #{$tablet-device}{
       font-size: 36px;
     }
-    @media #{$large-mobile}{
+    @media #{$small-mobile}{
       font-size: 30px;
     }
   }
@@ -70,7 +70,7 @@ h3,
     @media #{$tablet-device}{
       font-size: 28px;
     }
-    @media #{$large-mobile}{
+    @media #{$small-mobile}{
       font-size: 25px;
 }
 }
@@ -82,7 +82,7 @@ h4 {
     @media #{$tablet-device}{
       font-size: 28px;
     }
-    @media #{$large-mobile}{
+    @media #{$small-mobile}{
       font-size: 24px;
     }
 }
