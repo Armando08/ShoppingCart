@@ -1,7 +1,9 @@
 <template>
   <div class="home">
     <app-header />
-    <item v-for="item in this.itemData" :key="item.uuid" :itemData="item" />
+    <div class="container">
+      <item v-for="item in this.itemData" :key="item.uuid" :itemData="item" />
+    </div>
     <app-footer />
   </div>
 </template>
@@ -25,7 +27,7 @@ export default {
   },
   mounted() {
     fetch(
-      'https://api.musement.com/api/v3/venues/164/activities?limit=10&offset=0',
+      'https://api.musement.com/api/v3/venues/164/activities?limit=40&offset=0',
       {
         method: 'GET',
         headers: {
@@ -40,7 +42,7 @@ export default {
       .then(response => {
         this.responseData = response
         this.itemData = this.responseData.map(item => ({
-          about: item.about,
+          description: item.description,
           title: item.title,
           cover_image_url: item.cover_image_url,
           retail_price: item.retail_price,

@@ -1,6 +1,6 @@
-.item-wrapper {
-    position: absolute;
+.container {
+    position: relative;
     top: 150px;
-    width: 100%;
-    height: 550px;
+    max-width: 1600px;
+    margin: auto auto 300px;
 }
