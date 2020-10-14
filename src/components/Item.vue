@@ -45,6 +45,11 @@ export default {
       )
     },
   },
+  methods: {
+    addToFavorite() {
+      console.log('addedTofav')
+    },
+  },
   mounted() {
     console.log(this.itemData, `Item data`)
   },
