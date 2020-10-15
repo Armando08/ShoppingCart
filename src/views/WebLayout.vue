@@ -34,7 +34,7 @@ export default {
       itemData: [],
       currentPage: 1,
       itemPerPage: 6,
-      totalItems: null,
+      totalItems: 0,
     }
   },
   methods: {
@@ -61,6 +61,7 @@ export default {
           this.totalItems = response.meta.count
           this.responseData = response.data
           this.itemData = this.responseData.map(item => ({
+            uuid: item.uuid,
             description: item.description,
             title: item.title,
             cover_image_url: item.cover_image_url,
@@ -71,7 +72,7 @@ export default {
   },
   computed: {
     getTotalPages() {
-      return parseInt((this.totalItems / this.itemPerPage).toFixed())
+      return parseInt((Math.ceil(this.totalItems / this.itemPerPage)))
     },
   },
   mounted() {
