@@ -4,6 +4,8 @@
     <div class="container">
       <item v-for="item in this.itemData" :key="item.uuid" :itemData="item" />
       <pagination
+        :total-pages="getTotalPages"
+        :total="totalItems"
         :per-page="itemPerPage"
         :current-page="currentPage"
         @page-changed="onPageChange"
@@ -32,6 +34,7 @@ export default {
       itemData: [],
       currentPage: 1,
       itemPerPage: 6,
+      totalItems: null,
     }
   },
   methods: {
@@ -42,7 +45,7 @@ export default {
     },
     fetchData() {
       fetch(
-        `https://api.musement.com/api/v3/venues/164/activities?limit=${this.itemPerPage}&offset=${this.currentPage}`,
+        `https://api.musement.com/api/v3/activities?limit=${this.itemPerPage}&offset=${this.currentPage}`,
         {
           method: 'GET',
           headers: {
@@ -55,7 +58,8 @@ export default {
       )
         .then(response => response.json())
         .then(response => {
-          this.responseData = response
+          this.totalItems = response.meta.count
+          this.responseData = response.data
           this.itemData = this.responseData.map(item => ({
             description: item.description,
             title: item.title,
@@ -63,6 +67,11 @@ export default {
             retail_price: item.retail_price,
           }))
         })
+    },
+  },
+  computed: {
+    getTotalPages() {
+      return parseInt((this.totalItems / this.itemPerPage).toFixed())
     },
   },
   mounted() {
