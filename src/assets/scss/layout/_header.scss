@@ -1,7 +1,9 @@
 .header-wrapper {
-    position: relative;
     top: 0;
     width: 100%;
-    box-shadow: 6px -4px 20px $primary-shadow;
+    box-shadow: 6px -4px 20px #e3e3e3;
     height: 70px;
+    position: fixed;
+    background: white;
+    z-index: 9;
   }

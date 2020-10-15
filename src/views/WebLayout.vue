@@ -3,18 +3,27 @@
     <app-header />
     <div class="container">
       <item v-for="item in this.itemData" :key="item.uuid" :itemData="item" />
+      <pagination
+        :total-pages="getTotalPages"
+        :total="totalItems"
+        :per-page="itemPerPage"
+        :current-page="currentPage"
+        @page-changed="onPageChange"
+      />
     </div>
     <app-footer />
   </div>
 </template>
 
 <script>
-import AppHeader from '@/components/AppHeader.vue'
-import AppFooter from '@/components/AppFooter.vue'
-import Item from '@/components/Item.vue'
+import AppHeader from '../components/AppHeader.vue'
+import AppFooter from '../components/AppFooter.vue'
+import Item from '../components/Item.vue'
+import Pagination from '../components/Pagination'
 
 export default {
   components: {
+    Pagination,
     AppHeader,
     AppFooter,
     Item,
@@ -23,31 +32,51 @@ export default {
     return {
       responseData: [],
       itemData: [],
+      currentPage: 1,
+      itemPerPage: 6,
+      totalItems: 0,
     }
   },
+  methods: {
+    onPageChange(page) {
+      console.log(page)
+      this.currentPage = page
+      this.fetchData()
+    },
+    fetchData() {
+      fetch(
+        `https://api.musement.com/api/v3/activities?limit=${this.itemPerPage}&offset=${this.currentPage}`,
+        {
+          method: 'GET',
+          headers: {
+            'accept-language': 'en',
+            'content-type': 'application/json',
+            'x-musement-currency': 'EUR',
+            'x-musement-version': '3.4.0',
+          },
+        }
+      )
+        .then(response => response.json())
+        .then(response => {
+          this.totalItems = response.meta.count
+          this.responseData = response.data
+          this.itemData = this.responseData.map(item => ({
+            uuid: item.uuid,
+            description: item.description,
+            title: item.title,
+            cover_image_url: item.cover_image_url,
+            retail_price: item.retail_price,
+          }))
+        })
+    },
+  },
+  computed: {
+    getTotalPages() {
+      return parseInt((Math.ceil(this.totalItems / this.itemPerPage)))
+    },
+  },
   mounted() {
-    fetch(
-      'https://api.musement.com/api/v3/venues/164/activities?limit=40&offset=0',
-      {
-        method: 'GET',
-        headers: {
-          'accept-language': 'en',
-          'content-type': 'application/json',
-          'x-musement-currency': 'EUR',
-          'x-musement-version': '3.4.0',
-        },
-      }
-    )
-      .then(response => response.json())
-      .then(response => {
-        this.responseData = response
-        this.itemData = this.responseData.map(item => ({
-          description: item.description,
-          title: item.title,
-          cover_image_url: item.cover_image_url,
-          retail_price: item.retail_price,
-        }))
-      })
+    this.fetchData()
   },
 }
 </script>
