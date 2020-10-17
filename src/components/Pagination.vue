@@ -56,7 +56,7 @@
           Last
         </button>
       </li>
-      <span>{{' Page: ' + currentPage +' Out of ' + totalPages}}</span>
+      <span>{{ ' Page: ' + currentPage + ' Out of ' + totalPages }}</span>
     </ul>
   </div>
 </template>

@@ -32,6 +32,18 @@
 </template>
 <script>
 export default {
+  data() {
+    return {
+      window: {
+        width: 0,
+        height: 0,
+      },
+      photo: {
+        width: 0,
+        height: 0,
+      },
+    }
+  },
   props: {
     itemData: {
       type: Object,
@@ -41,7 +53,8 @@ export default {
   computed: {
     itemImage() {
       return (
-        this.itemData.cover_image_url + `?q=${60}&fit=crop&w=${500}&h=${300}`
+        this.itemData.cover_image_url +
+        `?q=${60}&fit=crop&w=${this.photo.width}&h=${this.photo.height}`
       )
     },
   },
@@ -49,9 +62,29 @@ export default {
     addToFavorite() {
       console.log('addedTofav')
     },
+    // TODO: REFACTOR in window width
+    handleResize: function() {
+      this.window.width = window.innerWidth
+      this.window.height = window.innerHeight
+
+      if (
+        (this.window.width > 320 && this.window.width < 575) ||
+        this.window.width < 321
+      ) {
+        this.photo.height = 800
+      } else if (this.window.width > 575 && this.window.width < 991) {
+        this.photo.width = 500
+        this.photo.height = 300
+      } else if (this.window.width > 993 && this.window.width < 1200) {
+        this.photo.height = 300
+      } else if (this.window.width > 1200) {
+        this.photo.height = 150
+      }
+    },
   },
-  mounted() {
-    console.log(this.itemData, `Item data`)
+  created() {
+    window.addEventListener('resize', this.handleResize)
+    this.handleResize()
   },
 }
 </script>

@@ -72,7 +72,7 @@ export default {
   },
   computed: {
     getTotalPages() {
-      return parseInt((Math.ceil(this.totalItems / this.itemPerPage)))
+      return parseInt(Math.ceil(this.totalItems / this.itemPerPage))
     },
   },
   mounted() {
