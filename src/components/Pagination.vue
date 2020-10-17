@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pagination">
     <ul class="pagination">
       <li class="pagination-item">
         <button

@@ -5,9 +5,18 @@
     </div>
     <div class="details">
       <div class="title">{{ itemData.title }}</div>
-      <div class="description">{{ itemData.description }}</div>
+      <div class="description">
+        {{ description(itemData.description) }}
+      </div>
+      <div class="prices">
+        <div class="final-price">
+          {{ itemData.retail_price.formatted_value }}
+        </div>
+        <div class="strike-price" v-if="itemData.discount > 0">
+          <span> € {{ netPriceCalculation() }} </span>
+        </div>
+      </div>
     </div>
-    <span class="border"></span>
     <div class="footer">
       <div class="add-to-favorite">
         <div @mouseover="addToFavorite()">
@@ -38,10 +47,11 @@ export default {
         width: 0,
         height: 0,
       },
-      photo: {
-        width: 0,
-        height: 0,
+      defaultImage: {
+        width: 600,
+        height: 500,
       },
+      netPrice: 0,
     }
   },
   props: {
@@ -54,7 +64,9 @@ export default {
     itemImage() {
       return (
         this.itemData.cover_image_url +
-        `?q=${60}&fit=crop&w=${this.photo.width}&h=${this.photo.height}`
+        `?q=${60}&fit=crop&w=${this.defaultImage.width}&h=${
+          this.defaultImage.height
+        }`
       )
     },
   },
@@ -62,24 +74,24 @@ export default {
     addToFavorite() {
       console.log('addedTofav')
     },
-    // TODO: REFACTOR in window width
-    handleResize: function() {
+    description(itemDescription) {
+      if (!itemDescription) return 'No Description !'
+      if (itemDescription.split('').length >= 70) {
+        return `${itemDescription
+          .split(' ')
+          .slice(0, 15)
+          .join(' ')}...`
+      }
+      return itemDescription
+    },
+    netPriceCalculation() {
+      return (this.netPrice =
+        this.itemData.retail_price.value -
+        (this.itemData.retail_price.value * this.itemData.discount) / 100)
+    },
+    handleResize() {
       this.window.width = window.innerWidth
       this.window.height = window.innerHeight
-
-      if (
-        (this.window.width > 320 && this.window.width < 575) ||
-        this.window.width < 321
-      ) {
-        this.photo.height = 800
-      } else if (this.window.width > 575 && this.window.width < 991) {
-        this.photo.width = 500
-        this.photo.height = 300
-      } else if (this.window.width > 993 && this.window.width < 1200) {
-        this.photo.height = 300
-      } else if (this.window.width > 1200) {
-        this.photo.height = 150
-      }
     },
   },
   created() {
