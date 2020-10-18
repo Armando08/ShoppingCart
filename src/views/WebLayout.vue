@@ -1,8 +1,14 @@
 <template>
   <div class="home">
-    <app-header />
+    <app-header :favorite-list="favoritesList" :cart-list="cartList" />
     <div class="container">
-      <item v-for="item in this.itemData" :key="item.uuid" :itemData="item" />
+      <item
+        @addToFavorites="addToFavorites"
+        @addToCart="addToCart"
+        v-for="item in this.itemData"
+        :key="item.uuid"
+        :itemData="item"
+      />
       <pagination
         :total-pages="getTotalPages"
         :total="totalItems"
@@ -35,6 +41,12 @@ export default {
       currentPage: 1,
       itemPerPage: 6,
       totalItems: 0,
+      favoritesList: [],
+      cartList: [],
+      window: {
+        width: 0,
+        height: 0,
+      },
     }
   },
   methods: {
@@ -73,11 +85,25 @@ export default {
           }))
         })
     },
+    addToFavorites(item) {
+      this.favoritesList.push(item)
+    },
+    addToCart(item) {
+      this.cartList.push(item)
+    },
+    handleResize() {
+      this.window.width = window.innerWidth
+      this.window.height = window.innerHeight
+    },
   },
   computed: {
     getTotalPages() {
       return parseInt(Math.ceil(this.totalItems / this.itemPerPage))
     },
+  },
+  created() {
+    window.addEventListener('resize', this.handleResize)
+    this.handleResize()
   },
   mounted() {
     this.fetchData()

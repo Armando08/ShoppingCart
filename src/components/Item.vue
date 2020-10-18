@@ -19,39 +19,44 @@
     </div>
     <div class="footer">
       <div class="add-to-favorite">
-        <div @mouseover="addToFavorite()">
+        <div class="favorite-wrapper" @click="addToFavorite(false)">
           <img
+            v-if="addedToFavorite"
+            src="../assets/svg/heart-solid.svg"
+            alt="favorite"
+            class="icon-size"
+            :style="addedToFavorite ? 'cursor: not-allowed;' : ''"
+          />
+          <img
+            v-else
             src="@/assets/svg/heart-regular.svg"
             alt="favorite"
             class="icon-size"
           />
         </div>
       </div>
-      <div class="add-to-card">C</div>
+      <div class="add-to-card">
+        <div @click="addToCart()">
+          <img
+            src="../assets/svg/cart-plus-solid.svg"
+            alt="favorite"
+            class="icon-size"
+          />
+        </div>
+      </div>
     </div>
-
-    <!--     
-    <div>
-      <span>{{ itemData.about }}</span>
-      <img :src="itemImage" />
-      <span>{{ itemData.retail_price.formatted_value }}</span>
-      <span>{{ itemData.title }}</span>
-    </div> -->
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
-      window: {
-        width: 0,
-        height: 0,
-      },
       defaultImage: {
         width: 600,
         height: 500,
       },
       netPrice: 0,
+      addedToFavorite: false,
     }
   },
   props: {
@@ -71,8 +76,16 @@ export default {
     },
   },
   methods: {
-    addToFavorite() {
-      console.log('addedTofav')
+    addToCart() {
+      this.$emit('addToCart', this.itemData)
+    },
+    addToFavorite(isClicked) {
+      isClicked = true
+      if (this.addedToFavorite) {
+        return
+      }
+      this.$emit('addToFavorites', this.itemData)
+      this.addedToFavorite = isClicked
     },
     description(itemDescription) {
       if (!itemDescription) return 'No Description !'
@@ -89,14 +102,6 @@ export default {
         this.itemData.retail_price.value -
         (this.itemData.retail_price.value * this.itemData.discount) / 100)
     },
-    handleResize() {
-      this.window.width = window.innerWidth
-      this.window.height = window.innerHeight
-    },
-  },
-  created() {
-    window.addEventListener('resize', this.handleResize)
-    this.handleResize()
   },
 }
 </script>

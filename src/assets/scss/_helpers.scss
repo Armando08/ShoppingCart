@@ -1,0 +1,16 @@
+@mixin action-header {
+  cursor: pointer;
+  position: relative;
+  width: 100px;
+}
+@mixin badge {
+  width: 25px;
+  height: 25px;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 2px;
+  position: absolute;
+  right: 10px;
+  bottom: 35px;
+  border-radius: 15px;
+}
