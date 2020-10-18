@@ -1,0 +1,18 @@
+.cart {
+  @include action-header;
+  .badge {
+    @include badge;
+    background: $primary;
+    color: white;
+  }
+  .total {
+    position: absolute;
+    top: 5px;
+    right: 70px;
+    background: #004395;
+    color: white;
+    border-radius: 3px;
+    padding: 0 10px;
+    width: 100%;
+  }
+}

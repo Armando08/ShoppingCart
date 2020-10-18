@@ -1,0 +1,9 @@
+.favorites {
+  @include action-header;
+  right: 75px;
+  .badge {
+    @include badge;
+    background: $danger;
+    color: white;
+  }
+}

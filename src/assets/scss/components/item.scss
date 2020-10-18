@@ -2,12 +2,19 @@
   width: 15%;
   height: auto;
   background: #fafafa;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+  //box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
   display: inline-block;
   overflow: hidden;
   margin: 10px;
   position: relative;
+  border: 1px solid #e5e5e5;
+  &:hover {
+    box-shadow: 0 8px 16px -4px rgba(9, 30, 66, 0.25),
+      0 0 1px rgba(9, 30, 66, 0.31);
+    transition: box-shadow 0.25s ease-in-out 0s,
+      -webkit-box-shadow 0.25s ease-in-out 0s;
+  }
 
   @media #{$desktop-device} {
     width: 30%;
@@ -22,12 +29,12 @@
   @media #{$extra-small-mobile} {
     width: 80%;
   }
-  &:hover {
-    .footer {
-      //  visibility: visible;
-      //   transition: visibility 1s cubic-bezier(0.075, 0.82, 0.165, 1);
-    }
-  }
+  //&:hover {
+  //  .footer {
+  //    //  visibility: visible;
+  //    //   transition: visibility 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+  //  }
+  //}
 }
 
 .details {
@@ -58,6 +65,10 @@
   @media #{$small-mobile} {
     font-size: 20px;
   }
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
 }
 .description {
   font-size: 13px;
@@ -87,7 +98,6 @@
   .final-price {
     color: $danger;
     font-size: 20px;
-    font-weight: bold;
     @media #{$desktop-device} {
       font-size: 20px;
     }
@@ -123,17 +133,18 @@
   width: 100%;
   height: 50px;
   margin-top: 30px;
+  padding-top: 5px;
 }
 .add-to-favorite {
   flex: 1;
-  .icon-size {
-    width: 20px;
-    position: relative;
-    top: 5px;
-    color: $danger;
-  }
+}
+.icon-size {
+  width: 25px;
+  position: relative;
+  top: 5px;
+  color: $danger;
+  cursor: pointer;
 }
 .add-to-card {
   flex: 1;
-  background: blue;
 }

@@ -2,9 +2,12 @@
 // CSS index
 
 @import 'variables';
+@import "helpers";
 @import 'global/default';
 @import 'layout/header';
 @import 'layout/footer';
 @import 'layout/container';
 @import 'components/item';
 @import "components/pagination";
+@import "components/favorites";
+@import "components/cart";

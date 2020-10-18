@@ -1,9 +1,27 @@
 .header-wrapper {
-    top: 0;
-    width: 100%;
-    box-shadow: 6px -4px 20px #e3e3e3;
-    height: 70px;
-    position: fixed;
-    background: white;
-    z-index: 9;
-  }
+  top: 0;
+  width: 100%;
+  box-shadow: 6px -4px 20px #e3e3e3;
+  height: 70px;
+  position: fixed;
+  background: $white;
+  z-index: 9;
+  display: flex;
+  padding: 0 30px;
+}
+.logo-wrapper {
+  flex: 1;
+  display: flex;
+}
+
+.action-wrapper {
+  padding-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+    flex: 1;
+  height: 100%;
+}
+
+.icon-size {
+  width: 30px;
+}
