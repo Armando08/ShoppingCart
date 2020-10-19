@@ -4,8 +4,8 @@
       <h1 class="logo">Logo</h1>
     </div>
     <div class="action-wrapper">
-      <favorites :favorites="favoriteList" />
-      <cart :cart="cartList" />
+      <favorites />
+      <cart />
     </div>
   </div>
 </template>
@@ -16,19 +16,6 @@ export default {
   components: { Cart, Favorites },
   data() {
     return {}
-  },
-  props: {
-    favoriteList: {
-      type: Array,
-      required: true,
-    },
-    cartList: {
-      type: Array,
-      required: true,
-    },
-  },
-  mounted() {
-    console.log(this.favoriteList)
   },
 }
 </script>

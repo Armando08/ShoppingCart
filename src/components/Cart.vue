@@ -15,14 +15,9 @@ export default {
   name: 'Cart',
   data() {
     return {
+      cart: [],
       total: 0,
     }
-  },
-  props: {
-    cart: {
-      type: Array,
-      required: true,
-    },
   },
   watch: {
     cart() {
@@ -32,6 +27,10 @@ export default {
       )
     },
   },
-  mounted() {},
+  mounted() {
+    this.$root.$on('addToCart', item => {
+      this.cart.push(item)
+    })
+  },
 }
 </script>

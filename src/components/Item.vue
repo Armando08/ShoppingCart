@@ -19,13 +19,13 @@
     </div>
     <div class="footer">
       <div class="add-to-favorite">
-        <div class="favorite-wrapper" @click="addToFavorite(false)">
+        <div class="favorite-wrapper" @click="addToFavorite(itemData)">
           <img
-            v-if="addedToFavorite"
+            v-if="itemData.isFavorites"
             src="../assets/svg/heart-solid.svg"
             alt="favorite"
             class="icon-size"
-            :style="addedToFavorite ? 'cursor: not-allowed;' : ''"
+            :style="itemData.isFavorites ? 'cursor: not-allowed;' : ''"
           />
           <img
             v-else
@@ -36,7 +36,7 @@
         </div>
       </div>
       <div class="add-to-card">
-        <div @click="addToCart()">
+        <div @click="addToCart(itemData)">
           <img
             src="../assets/svg/cart-plus-solid.svg"
             alt="favorite"
@@ -48,6 +48,8 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   data() {
     return {
@@ -56,7 +58,6 @@ export default {
         height: 500,
       },
       netPrice: 0,
-      addedToFavorite: false,
     }
   },
   props: {
@@ -74,18 +75,17 @@ export default {
         }`
       )
     },
+    ...mapGetters({
+      favorites: 'setToFavorites',
+    }),
   },
   methods: {
-    addToCart() {
-      this.$emit('addToCart', this.itemData)
+    addToCart(item) {
+      this.$root.$emit('addToCart', item)
     },
-    addToFavorite(isClicked) {
-      isClicked = true
-      if (this.addedToFavorite) {
-        return
-      }
-      this.$emit('addToFavorites', this.itemData)
-      this.addedToFavorite = isClicked
+    addToFavorite(item) {
+      this.$store.dispatch('setToFavorites', item)
+      item.isFavorites = true
     },
     description(itemDescription) {
       if (!itemDescription) return 'No Description !'
@@ -103,5 +103,6 @@ export default {
         (this.itemData.retail_price.value * this.itemData.discount) / 100)
     },
   },
+  mounted() {},
 }
 </script>

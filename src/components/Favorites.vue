@@ -12,13 +12,16 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'Favorites',
-  props: {
-    favorites: {
-      type: Array,
-      required: true,
-    },
+  data() {
+    return {}
+  },
+  computed: {
+    ...mapGetters({
+      favorites: 'setToFavorites',
+    }),
   },
 }
 </script>
