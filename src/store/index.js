@@ -5,20 +5,28 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    favorites:[],
-    selectedFavorites: []
+    favorites: [],
+    selectedFavorites: [],
   },
   mutations: {
-    SET_FAVORITES(state, payload) {
-      if (payload.isFavorites) {
-        return
+    SET_TO_FAVORITES(state, itemUUID) {
+      let selectedIndex
+      let exist = state.favorites.filter((selectedUUID, index) => {
+        if (selectedUUID === itemUUID) {
+          selectedIndex = index
+          return true
+        }
+      })
+      if (exist.length > 0) {
+        state.favorites.splice(selectedIndex, 1)
+      } else {
+        state.favorites.push(itemUUID)
       }
-      this.state.favorites.push(payload)
     },
   },
   actions: {
-    setToFavorites({commit}, data) {
-      commit('SET_FAVORITES', data)
+    setToFavorites({ commit }, data) {
+      commit('SET_TO_FAVORITES', data)
     },
   },
   getters: {

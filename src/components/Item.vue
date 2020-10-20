@@ -19,13 +19,12 @@
     </div>
     <div class="footer">
       <div class="add-to-favorite">
-        <div class="favorite-wrapper" @click="addToFavorite(itemData)">
+        <span class="favorite-wrapper" @click="addToFavorite(itemData)">
           <img
-            v-if="itemData.isFavorites"
+            v-if="isAtFavorites(itemData)"
             src="../assets/svg/heart-solid.svg"
             alt="favorite"
             class="icon-size"
-            :style="itemData.isFavorites ? 'cursor: not-allowed;' : ''"
           />
           <img
             v-else
@@ -33,7 +32,7 @@
             alt="favorite"
             class="icon-size"
           />
-        </div>
+        </span>
       </div>
       <div class="add-to-card">
         <div @click="addToCart(itemData)">
@@ -58,6 +57,7 @@ export default {
         height: 500,
       },
       netPrice: 0,
+      hasFavorites: false,
     }
   },
   props: {
@@ -84,8 +84,13 @@ export default {
       this.$root.$emit('addToCart', item)
     },
     addToFavorite(item) {
-      this.$store.dispatch('setToFavorites', item)
-      item.isFavorites = true
+      this.$store.dispatch('setToFavorites', item.uuid)
+    },
+    isAtFavorites(item) {
+      let exists = this.favorites.filter(
+        selectedUUID => selectedUUID === item.uuid
+      )
+      return exists.length > 0
     },
     description(itemDescription) {
       if (!itemDescription) return 'No Description !'
