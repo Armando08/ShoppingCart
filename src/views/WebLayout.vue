@@ -44,8 +44,10 @@ export default {
   methods: {
     onPageChange(page) {
       console.log(page)
-      this.currentPage = page
-      this.fetchData()
+      setTimeout(() => {
+        this.currentPage = page
+        this.fetchData()
+      }, 500)
     },
     fetchData() {
       fetch(
@@ -75,6 +77,7 @@ export default {
             cover_image_url: item.cover_image_url,
             retail_price: item.retail_price,
             isFavorites: false,
+            quantity: 1
           }))
         })
     },
