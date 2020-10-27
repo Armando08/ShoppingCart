@@ -4,7 +4,7 @@
       <div class="badge" v-if="this.cart.length > 0">
         {{ this.cart.length }}
       </div>
-      <!--<div class="total">€ {{ this.total.toFixed(2) }}</div>-->
+<!--      <div class="total">€ {{ this.total.toFixed(2) }}</div>-->
       <img
         src="../assets/svg/shopping-basket-solid.svg"
         alt="favorites"
@@ -18,8 +18,9 @@
         :key="index"
         :cart-item="cart"
         :index="index"
+        :totalItem="total"
         @remove-item="removeItemFromCart(index)"
-        :quantity="itemQuantity"
+        @update-quantity="updateQuantity($event)"
       />
     </div>
   </div>
@@ -37,7 +38,6 @@ export default {
       cart: [],
       total: 0,
       isItemInCart: false,
-      itemQuantity: 0,
     }
   },
   methods: {
@@ -51,44 +51,39 @@ export default {
       this.cart.splice(index, 1)
     },
     updateQuantity(item) {
-      console.log(item,`ky asht item`)
       let total = 0
 
       this.cart.forEach((record, i) => {
         if (item.itemUUID === record.uuid) {
-          console.log(this.items[i].quantity, `i updatuarr`)
+          this.cart[i].quantity ++
         }
-        total = total + record.retail_price.value * this.items[i].quantity
+        total = total + record.retail_price.value * this.cart[i].quantity
       })
+      console.log(total)
       return (this.total = total)
-    }
-  },
-  watch: {
-    cart() {
-      this.total = this.cart.reduce(
-        (total, item) => total + item.retail_price.value,
-        0
-      )
     },
   },
+  // watch: {
+  //   cart() {
+  //     this.total = this.cart.reduce(
+  //       (total, item) => total + item.retail_price.value,
+  //       0
+  //     )
+  //   },
+  // },
   mounted() {
     this.$root.$on('addToCart', item => {
       this.isItemInCart = false
       this.cart.forEach((record, i) => {
         if (item.uuid === record.uuid) {
           this.isItemInCart = true
-          console.log(this.cart[i])
-          this.itemQuantity = this.cart[i].quantity
-
+          this.cart[i].quantity++
         }
       })
       if (!this.isItemInCart) {
         this.cart.push(item)
       }
     })
-    this.$root.$on('update-quantity', (item) => {
-      this.updateQuantity(item)
-    })
-  },
+  }
 }
 </script>

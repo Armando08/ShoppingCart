@@ -66,9 +66,6 @@ export default {
         .then(response => {
           this.totalItems = response.meta.count
           this.responseData = response.data
-          this.responseData.find(item => {
-            console.log(item.discount !== 0)
-          })
           this.itemData = this.responseData.map(item => ({
             uuid: item.uuid,
             discount: item.discount,
@@ -77,7 +74,7 @@ export default {
             cover_image_url: item.cover_image_url,
             retail_price: item.retail_price,
             isFavorites: false,
-            quantity: 1
+            quantity: 0,
           }))
         })
     },

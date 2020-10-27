@@ -16,7 +16,7 @@
               type="button"
               :disabled="disableBtn"
               @click="decrementValue()"
-              :style="disableBtn ? 'cursor: not-allowed': ''"
+              :style="disableBtn ? 'cursor: not-allowed' : ''"
             >
               <i>&#x2212;</i>
             </button>
@@ -40,8 +40,10 @@
         </div>
       </div>
       <div class="item-action-wrapper">
-        <span class="total-item">{{ totalItemPrice }}</span>
-        <div class="remove-item" @click="removeItem()"><span>&times;</span></div>
+        <span class="total-item">{{ this.totalItem.toFixed(2) }}</span>
+        <div class="remove-item" @click="removeItem()">
+          <span>&times;</span>
+        </div>
       </div>
     </div>
   </div>
@@ -52,13 +54,12 @@ export default {
   data() {
     return {
       counter: 1,
-      disableBtn: this.cartItem.quantity <= 1,
+      disableBtn: false,
       totalPrice: 0,
       defaultImage: {
         width: 70,
         height: 70,
       },
-      totalItemPrice: 0
     }
   },
   props: {
@@ -68,12 +69,12 @@ export default {
     },
     index: {
       required: true,
-      type: Number
+      type: Number,
     },
-    quantity:{
+    totalItem: {
       required: true,
-      type: Number
-    }
+      type: Number,
+    },
   },
   methods: {
     incrementValue() {
@@ -81,31 +82,24 @@ export default {
     },
     decrementValue() {
       this.counter--
-      if (this.counter <= 1) {
-        this.disableBtn = true
-      }
     },
     removeItem() {
-      this.$emit("remove-item")
+      this.$emit('remove-item')
     },
-    setQuantity() {
-      if (!this.quantity) {
-        this.quantity++
-      } else {
-        this.quantity = this.counter
-      }
-      this.totalItemPrice = this.cartItem.retail_price.value * this.quantity
-    },
+    // setQuantity() {
+    //   if (!this.quantity) {
+    //     this.quantity++
+    //   } else {
+    //     this.quantity = this.counter
+    //   }
+    //   this.totalItemPrice = this.cartItem.retail_price.value * this.quantity
+    // },
     updateStore() {
-      this.$root.$emit('update-quantity', {
-        quantity: this.counter = /^[0,-]/.test(this.counter) ? 1 : this.counter,
+      this.$emit('update-quantity', {
+        quantity: this.counter,
         itemUUID: this.cartItem.uuid,
       })
     },
-    // updateQuantity() {
-    //   console.log('kot')
-    //
-    // }
   },
   computed: {
     itemImage() {
@@ -118,14 +112,13 @@ export default {
     },
   },
   mounted() {
-    console.log(this.quantity)
-    this.counter = this.quantity
+    this.updateStore()
+    this.counter = this.cartItem.quantity
   },
   watch: {
     counter() {
-      alert(1)
       this.updateStore()
-    }
+    },
   },
 }
 </script>
