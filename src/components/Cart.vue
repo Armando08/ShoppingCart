@@ -4,7 +4,7 @@
       <div class="badge" v-if="this.cart.length > 0">
         {{ this.cart.length }}
       </div>
-<!--      <div class="total">€ {{ this.total.toFixed(2) }}</div>-->
+      <!--      <div class="total">€ {{ this.total.toFixed(2) }}</div>-->
       <img
         src="../assets/svg/shopping-basket-solid.svg"
         alt="favorites"
@@ -14,13 +14,11 @@
     <div id="mySidenav" class="sidenav">
       <span class="close-btn" @click="closeNav()">&times;</span>
       <item-cart
-        v-for="(cart, index) in this.cart"
+        v-for="(cartItem, index) in this.cart"
         :key="index"
-        :cart-item="cart"
+        :cart-item="cartItem"
         :index="index"
         :totalItem="total"
-        @remove-item="removeItemFromCart(index)"
-        @update-quantity="updateQuantity($event)"
       />
     </div>
   </div>
@@ -28,6 +26,7 @@
 
 <script>
 import ItemCart from '../components/ItemCart'
+import { mapGetters } from 'vuex'
 export default {
   name: 'Cart',
   components: {
@@ -35,7 +34,6 @@ export default {
   },
   data() {
     return {
-      cart: [],
       total: 0,
       isItemInCart: false,
     }
@@ -46,44 +44,12 @@ export default {
     },
     closeNav() {
       this.$el.getElementsByClassName('sidenav')[0].style.width = '0px'
-    },
-    removeItemFromCart(index) {
-      this.cart.splice(index, 1)
-    },
-    updateQuantity(item) {
-      let total = 0
-
-      this.cart.forEach((record, i) => {
-        if (item.itemUUID === record.uuid) {
-          this.cart[i].quantity ++
-        }
-        total = total + record.retail_price.value * this.cart[i].quantity
-      })
-      console.log(total)
-      return (this.total = total)
-    },
+    }
   },
-  // watch: {
-  //   cart() {
-  //     this.total = this.cart.reduce(
-  //       (total, item) => total + item.retail_price.value,
-  //       0
-  //     )
-  //   },
-  // },
-  mounted() {
-    this.$root.$on('addToCart', item => {
-      this.isItemInCart = false
-      this.cart.forEach((record, i) => {
-        if (item.uuid === record.uuid) {
-          this.isItemInCart = true
-          this.cart[i].quantity++
-        }
-      })
-      if (!this.isItemInCart) {
-        this.cart.push(item)
-      }
-    })
+  computed: {
+    ...mapGetters({
+      cart: 'getCart',
+    }),
   }
 }
 </script>

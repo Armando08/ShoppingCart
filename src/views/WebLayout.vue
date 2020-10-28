@@ -74,7 +74,7 @@ export default {
             cover_image_url: item.cover_image_url,
             retail_price: item.retail_price,
             isFavorites: false,
-            quantity: 0,
+            quantity: 1,
           }))
         })
     },
