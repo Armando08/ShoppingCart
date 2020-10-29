@@ -81,7 +81,7 @@ export default {
   },
   methods: {
     addToCart(item) {
-      this.$root.$emit('addToCart', item)
+      this.$store.dispatch('addToCart', item)
     },
     addToFavorite(item) {
       this.$store.dispatch('setToFavorites', item.uuid)
@@ -108,6 +108,5 @@ export default {
         (this.itemData.retail_price.value * this.itemData.discount) / 100)
     },
   },
-  mounted() {},
 }
 </script>

@@ -9,6 +9,7 @@
         :per-page="itemPerPage"
         :current-page="currentPage"
         @page-changed="onPageChange"
+        @item-perPage="selectItemPerpage($event)"
       />
     </div>
     <app-footer />
@@ -35,16 +36,15 @@ export default {
       currentPage: 1,
       itemPerPage: 6,
       totalItems: 0,
-      window: {
-        width: 0,
-        height: 0,
-      },
     }
   },
   methods: {
     onPageChange(page) {
-      console.log(page)
       this.currentPage = page
+      this.fetchData()
+    },
+    selectItemPerpage(value) {
+      this.itemPerPage = value
       this.fetchData()
     },
     fetchData() {
@@ -64,9 +64,6 @@ export default {
         .then(response => {
           this.totalItems = response.meta.count
           this.responseData = response.data
-          this.responseData.find(item => {
-            console.log(item.discount !== 0)
-          })
           this.itemData = this.responseData.map(item => ({
             uuid: item.uuid,
             discount: item.discount,
@@ -75,22 +72,15 @@ export default {
             cover_image_url: item.cover_image_url,
             retail_price: item.retail_price,
             isFavorites: false,
+            quantity: 1,
           }))
         })
-    },
-    handleResize() {
-      this.window.width = window.innerWidth
-      this.window.height = window.innerHeight
     },
   },
   computed: {
     getTotalPages() {
       return parseInt(Math.ceil(this.totalItems / this.itemPerPage))
     },
-  },
-  created() {
-    window.addEventListener('resize', this.handleResize)
-    this.handleResize()
   },
   mounted() {
     this.fetchData()

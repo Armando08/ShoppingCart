@@ -57,6 +57,11 @@
         </button>
       </li>
       <span>{{ ' Page: ' + currentPage + ' Out of ' + totalPages }}</span>
+      <select v-model="selectedItemPerpage">
+        <option :value="6">6</option>
+        <option :value="12">12</option>
+        <option :value="20">20</option>
+      </select>
     </ul>
   </div>
 </template>
@@ -64,6 +69,11 @@
 <script>
 export default {
   name: 'Pagination',
+  data() {
+    return {
+      selectedItemPerpage: 6
+    }
+  },
   props: {
     maxVisibleButtons: {
       type: Number,
@@ -143,5 +153,10 @@ export default {
       return this.currentPage === page
     },
   },
+  watch: {
+    selectedItemPerpage() {
+      this.$emit('item-perPage', this.selectedItemPerpage)
+    }
+  }
 }
 </script>

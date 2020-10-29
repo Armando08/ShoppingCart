@@ -1,18 +1,78 @@
 .cart {
+  top: 6px;
   @include action-header;
   .badge {
     @include badge;
+    right: 15px;
+    bottom: 20px;
     background: $primary;
     color: white;
   }
-  .total {
+}
+
+// Cart Drawer
+.cart-item-wrapper {
+  max-height: 675px;
+  overflow: auto;
+  margin-top: 30px;
+}
+.cart-image {
+  width: 70px;
+  height: 70px;
+}
+.cart-drawer-header {
+  display: flex;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  background: #f0f0f0;
+  box-shadow: 3px 0 7px #dadada;
+  z-index: 1;
+  height: 60px;
+  .total-cart {
+    padding-top: 20px;
+    flex: 1;
     position: absolute;
-    top: 5px;
-    right: 70px;
-    background: #004395;
-    color: white;
-    border-radius: 3px;
-    padding: 0 10px;
-    width: 100%;
+    left: 15px;
+    color: $primary;
+    font-size: 18px;
+    font-weight: 700;
   }
+}
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  right: 0;
+  background-color: #f0f0f0;
+  box-shadow: 12px 2px 83px -4px black;
+  transition: all 0.5s;
+  transition-duration: 0.3s;
+  animation-duration: 2s;
+  padding-top: 40px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .close-btn {
+  font-size: 36px;
+  cursor: pointer;
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  position: absolute;
+  margin-left: 370px;
 }
