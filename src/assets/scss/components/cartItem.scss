@@ -60,7 +60,7 @@
     }
   }
   .item-action-wrapper {
-    flex: 1;
+    flex: 2;
     text-align: center;
     .remove-item {
       background: $danger;
@@ -80,7 +80,10 @@
       }
     }
   }
-
+  .total-item {
+    position: relative;
+    bottom: 6px;
+  }
 }
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;

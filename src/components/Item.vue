@@ -108,6 +108,5 @@ export default {
         (this.itemData.retail_price.value * this.itemData.discount) / 100)
     },
   },
-  mounted() {},
 }
 </script>

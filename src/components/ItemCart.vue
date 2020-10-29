@@ -6,9 +6,9 @@
     <div class="details-side">
       <div class="info-wrapper">
         <div class="name">{{ cartItem.title }}</div>
-        <!--        <span class="price"-->
-        <!--          >€ {{ cartItem.retail_price.value.toFixed(2) }}</span-->
-        <!--        >-->
+        <span class="price"
+          >€ {{ cartItem.retail_price.value.toFixed(2) }}</span
+        >
         <div class="quantity">
           <span class="input-group-btn">
             <button
@@ -26,6 +26,7 @@
             type="number"
             v-model="cartItem.quantity"
             min="1"
+            @input="updateQuantity($event)"
           />
           <span class="input-group-btn">
             <button
@@ -40,7 +41,7 @@
         </div>
       </div>
       <div class="item-action-wrapper">
-        <span class="total-item">{{(cartItem.quantity * cartItem.retail_price.value).toFixed(2) }}</span>
+        <span class="total-item">€ {{ totalItemPrice }}</span>
         <div class="remove-item" @click="removeItem()">
           <span>&times;</span>
         </div>
@@ -53,11 +54,10 @@
 export default {
   data() {
     return {
-      counter: 1,
       disableBtn: false,
       defaultImage: {
-        width: 70,
-        height: 70,
+        width: 600,
+        height: 500,
       },
     }
   },
@@ -69,7 +69,7 @@ export default {
     index: {
       required: true,
       type: Number,
-    }
+    },
   },
   methods: {
     incrementValue() {
@@ -77,16 +77,31 @@ export default {
         item: this.cartItem,
         quantity: this.cartItem.quantity + 1,
       })
+      if (this.cartItem.quantity >= 1) {
+        this.disableBtn = false
+      }
     },
     decrementValue() {
       this.$store.dispatch('updateCart', {
         item: this.cartItem,
         quantity: this.cartItem.quantity - 1,
       })
+      if (this.cartItem.quantity <= 1) {
+        this.disableBtn = true
+      }
     },
     removeItem() {
-      this.$emit('remove-item')
-    }
+      this.$store.dispatch('removeFromCart', this.cartItem)
+    },
+
+    updateQuantity() {
+      this.$store.dispatch('updateCart', {
+        item: this.cartItem,
+        quantity: parseInt(
+          /^[0,-]/.test(this.cartItem.quantity) ? 1 : this.cartItem.quantity
+        ),
+      })
+    },
   },
   computed: {
     itemImage() {
@@ -97,9 +112,11 @@ export default {
         }`
       )
     },
+    totalItemPrice() {
+      return (
+        this.cartItem.quantity * this.cartItem.retail_price.value
+      ).toFixed(2)
+    },
   },
-  mounted() {
-    this.counter = this.cartItem.quantity
-  }
 }
 </script>
