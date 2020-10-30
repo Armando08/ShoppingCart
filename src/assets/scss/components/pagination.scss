@@ -2,13 +2,44 @@
   list-style-type: none;
   margin-top: 40px;
   text-align: center;
+  li {
+    margin: 5px;
+    button {
+      border-radius: 10px;
+      padding: 0 10px;
+    }
+  }
 }
-
+.pagination-browse {
+  display: inline-grid;
+  span {
+    font-weight: bold;
+    font-size: 16px;
+  }
+}
 .pagination-item {
   display: inline-block;
 }
 
 .active {
-  background-color: #4AAE9B;
+  background-color: #004395;
   color: #ffffff;
+}
+@media #{$small-mobile} {
+  font-size: 20px;
+  ul.pagination:nth-child(1) {
+    li:nth-child(2) {
+      display: none;
+    }
+  }
+  ul.pagination:nth-child(1) {
+    li:nth-child(8) {
+      display: none;
+    }
+  }
+  ul.pagination:nth-child(1) {
+    li:nth-child(2) {
+      display: none;
+    }
+  }
 }

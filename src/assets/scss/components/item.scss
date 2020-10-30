@@ -81,6 +81,7 @@
   }
   @media #{$tablet-device} {
     font-size: 17px;
+    line-height: 22px;
   }
   @media #{$small-mobile} {
     font-size: 18px;
@@ -139,13 +140,39 @@
 .add-to-favorite {
   flex: 1;
 }
-.icon-size {
-  width: 25px;
-  position: relative;
-  top: 5px;
-  color: $danger;
-  cursor: pointer;
-}
-.add-to-card {
-  flex: 1;
+.add-to-cart {
+  flex: 2;
+  text-align: center;
+  @media #{$xl-device} {
+    span {
+      display: none;
+    }
+    flex: 1;
+  }
+  .add-to-cart-btn {
+    background: $primary;
+    color: white;
+    font-size: 15px;
+    outline: none;
+    border: 1px solid $primary;
+    border-radius: 8px;
+    font-style: normal;
+    font-weight: 900;
+    text-align: center;
+    padding: 5px 10px 0;
+    width: 90%;
+    margin: 0 20px;
+    span {
+      position: relative;
+      top: -3px;
+    }
+  }
+  .cart-icon-size {
+    width: 20px;
+  }
+  @media #{$extra-small-mobile} {
+    span {
+      display: none;
+    }
+  }
 }

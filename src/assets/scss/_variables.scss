@@ -37,7 +37,7 @@ $secondary:     #f9c322;
 $success:       #28a745;
 $info:          #17a2b8;
 $warning:       #ffc107;
-$danger:        #dc3545;
+$danger: #dc3545;
 $light:         #f8f9fa;
 
 // Shadows 
@@ -45,7 +45,8 @@ $primary-shadow: #e3e3e3;
 
 
 // Responsive Variables
+$xl-device: 'only screen and (min-width: 1200px)';
 $desktop-device: 'only screen and (min-width: 992px) and (max-width: 1199px)';
 $tablet-device:'only screen and (min-width: 575px) and (max-width: 991px)';
-$small-mobile: 'only screen and (min-width: 321px) and (max-width: 575px)';
+$small-mobile: 'only screen and (min-width: 320px) and (max-width: 575px)';
 $extra-small-mobile: 'only screen and (max-width: 320px)';

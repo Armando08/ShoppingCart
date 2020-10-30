@@ -5,7 +5,7 @@
         {{ itemsQuantity }}
       </div>
       <img
-        src="../assets/svg/shopping-basket-solid.svg"
+        src="../assets/svg/shopping-cart-solid.svg"
         alt="favorites"
         class="icon-size"
       />
@@ -38,12 +38,15 @@ export default {
     ItemCart,
   },
   data() {
-    return {
-      isItemInCart: false,
-    }
+    return {}
   },
   methods: {
     showDrawer() {
+      console.log(window.screen.width)
+      if (window.screen.width <= 575) {
+        this.$el.getElementsByClassName('sidenav')[0].style.width = '320px'
+        return
+      }
       this.$el.getElementsByClassName('sidenav')[0].style.width = '400px'
     },
     closeNav() {
