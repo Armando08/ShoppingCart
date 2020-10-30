@@ -18,6 +18,17 @@
       </div>
     </div>
     <div class="footer">
+      <div class="add-to-cart">
+        <button class="add-to-cart-btn" @click="addToCart(itemData)">
+          <span> Add to cart </span>
+          <img
+            src="../assets/svg/cart-plus-solid.svg"
+            alt="cart"
+            class="cart-icon-size"
+          />
+        </button>
+      </div>
+
       <div class="add-to-favorite">
         <span class="favorite-wrapper" @click="addToFavorite(itemData)">
           <img
@@ -33,15 +44,6 @@
             class="icon-size"
           />
         </span>
-      </div>
-      <div class="add-to-card">
-        <div @click="addToCart(itemData)">
-          <img
-            src="../assets/svg/cart-plus-solid.svg"
-            alt="favorite"
-            class="icon-size"
-          />
-        </div>
       </div>
     </div>
   </div>

@@ -3,8 +3,6 @@
   @include action-header;
   .badge {
     @include badge;
-    right: 15px;
-    bottom: 20px;
     background: $primary;
     color: white;
   }
@@ -12,7 +10,7 @@
 
 // Cart Drawer
 .cart-item-wrapper {
-  max-height: 675px;
+  max-height: 96%;
   overflow: auto;
   margin-top: 30px;
 }
@@ -74,5 +72,11 @@
   display: flex;
   justify-content: flex-end;
   position: absolute;
-  margin-left: 370px;
+  margin-left: 360px;
+  @media #{$small-mobile} {
+    margin-left: 290px;
+  }
+  @media #{$extra-small-mobile} {
+    margin-left: 290px;
+  }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="pagination">
+  <div class="pagiantion-wrapper">
     <ul class="pagination">
       <li class="pagination-item">
         <button
@@ -8,7 +8,7 @@
           :disabled="isInFirstPage"
           aria-label="Go to first page"
         >
-          First
+          <span>First</span>
         </button>
       </li>
 
@@ -19,7 +19,7 @@
           :disabled="isInFirstPage"
           aria-label="Go to previous page"
         >
-          Previous
+          <span>Previous</span>
         </button>
       </li>
 
@@ -42,7 +42,7 @@
           :disabled="isInLastPage"
           aria-label="Go to next page"
         >
-          Next
+          <span>Next</span>
         </button>
       </li>
 
@@ -53,16 +53,18 @@
           :disabled="isInLastPage"
           aria-label="Go to last page"
         >
-          Last
+          <span>Last</span>
         </button>
       </li>
-      <span>{{ ' Page: ' + currentPage + ' Out of ' + totalPages }}</span>
+    </ul>
+    <div class="pagination-browse">
+      <span>{{ ' Page: ' + currentPage + ' /  ' + totalPages }}</span>
       <select v-model="selectedItemPerpage">
         <option :value="6">6</option>
         <option :value="12">12</option>
-        <option :value="20">20</option>
+        <option :value="18">18</option>
       </select>
-    </ul>
+    </div>
   </div>
 </template>
 
@@ -71,7 +73,7 @@ export default {
   name: 'Pagination',
   data() {
     return {
-      selectedItemPerpage: 6
+      selectedItemPerpage: 6,
     }
   },
   props: {
@@ -156,7 +158,7 @@ export default {
   watch: {
     selectedItemPerpage() {
       this.$emit('item-perPage', this.selectedItemPerpage)
-    }
-  }
+    },
+  },
 }
 </script>

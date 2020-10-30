@@ -1,11 +1,13 @@
 <template>
-  <div class="header-wrapper">
-    <div class="logo-wrapper">
-      <h1 class="logo">Logo</h1>
-    </div>
-    <div class="action-wrapper">
-      <favorites />
-      <cart />
+  <div class="header">
+    <div class="header-wrapper">
+      <div class="logo-wrapper">
+        <img src="../assets/logo.png" class="logo" />
+      </div>
+      <div class="action-wrapper">
+        <favorites />
+        <cart />
+      </div>
     </div>
   </div>
 </template>

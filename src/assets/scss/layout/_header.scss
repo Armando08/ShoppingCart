@@ -1,4 +1,4 @@
-.header-wrapper {
+.header {
   top: 0;
   width: 100%;
   box-shadow: 6px -4px 20px #e3e3e3;
@@ -6,8 +6,16 @@
   position: fixed;
   background: $white;
   z-index: 9;
-  display: flex;
   padding: 0 30px;
+  .header-wrapper {
+    display: flex;
+    max-width: 1450px;
+    margin: auto;
+  }
+  .logo {
+    width: 70px;
+    height: 70px;
+  }
 }
 .logo-wrapper {
   flex: 1;
@@ -18,10 +26,10 @@
   padding-top: 20px;
   display: flex;
   justify-content: flex-end;
-    flex: 1;
+  flex: 1;
   height: 100%;
 }
 
 .icon-size {
-  width: 30px;
+  width: 30px !important;
 }
