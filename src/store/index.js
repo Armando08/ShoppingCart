@@ -5,7 +5,6 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     favorites: [],
-    selectedFavorites: [],
     cart: [],
     totalCartPrice: 0,
     itemsQuantity: 0,
@@ -20,14 +19,10 @@ export default new Vuex.Store({
       }
     },
     SET_TO_FAVORITES(state, itemUUID) {
-      let selectedIndex
-      let exist = state.favorites.filter((selectedUUID, index) => {
-        if (selectedUUID === itemUUID) {
-          selectedIndex = index
-          return true
-        }
-      })
-      if (exist.length > 0) {
+      let selectedIndex = state.favorites.findIndex(
+        favorite => favorite === itemUUID
+      )
+      if (selectedIndex >= 0) {
         state.favorites.splice(selectedIndex, 1)
       } else {
         state.favorites.push(itemUUID)
@@ -40,15 +35,15 @@ export default new Vuex.Store({
         exist.quantity = quantity
       }
     },
-    REMOVE_FROM_CART(state, data) {
-      const index = state.cart.findIndex(added => added.uuid === data.uuid)
+    REMOVE_FROM_CART(state, item) {
+      const index = state.cart.findIndex(added => added.uuid === item.uuid)
       state.cart.splice(index, 1)
-      data.quantity = 1
+      item.quantity = 1
     },
 
     TOTAL_CART(state) {
       state.totalCartPrice = state.cart.reduce((total, item) => {
-        return total + item.retail_price.value * item.quantity
+        return total + item.retailPrice.value * item.quantity
       }, 0)
 
       state.itemsQuantity = state.cart.reduce((quantity, item) => {
@@ -57,24 +52,24 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    setToFavorites({ commit }, data) {
-      commit('SET_TO_FAVORITES', data)
+    setToFavorites({ commit }, item) {
+      commit('SET_TO_FAVORITES', item)
     },
-    addToCart({ commit }, data) {
-      commit('ADD_TO_CART', data)
-      commit('TOTAL_CART', data)
+    addToCart({ commit }, item) {
+      commit('ADD_TO_CART', item)
+      commit('TOTAL_CART', item)
     },
-    updateCart({ commit }, data) {
-      commit('UPDATE_CART', data)
-      commit('TOTAL_CART', data)
+    updateCart({ commit }, item) {
+      commit('UPDATE_CART', item)
+      commit('TOTAL_CART', item)
     },
-    removeFromCart({ commit }, data) {
-      commit('REMOVE_FROM_CART', data)
-      commit('TOTAL_CART', data)
+    removeFromCart({ commit }, item) {
+      commit('REMOVE_FROM_CART', item)
+      commit('TOTAL_CART', item)
     },
   },
   getters: {
-    setToFavorites(state) {
+    getFavorites(state) {
       return state.favorites
     },
     getCart(state) {

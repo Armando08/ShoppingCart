@@ -6,9 +6,7 @@
     <div class="details-side">
       <div class="info-wrapper">
         <div class="name">{{ cartItem.title }}</div>
-        <span class="price"
-          >€ {{ cartItem.retail_price.value.toFixed(2) }}</span
-        >
+        <span class="price">€ {{ cartItem.retailPrice.value.toFixed(2) }}</span>
         <div class="quantity">
           <span class="input-group-btn">
             <button
@@ -54,7 +52,7 @@
 export default {
   data() {
     return {
-      disableBtn: false,
+      disableBtn: true,
       defaultImage: {
         width: 600,
         height: 500,
@@ -106,16 +104,16 @@ export default {
   computed: {
     itemImage() {
       return (
-        this.cartItem.cover_image_url +
+        this.cartItem.coverImageUrl +
         `?q=${60}&fit=crop&w=${this.defaultImage.width}&h=${
           this.defaultImage.height
         }`
       )
     },
     totalItemPrice() {
-      return (
-        this.cartItem.quantity * this.cartItem.retail_price.value
-      ).toFixed(2)
+      return (this.cartItem.quantity * this.cartItem.retailPrice.value).toFixed(
+        2
+      )
     },
   },
 }

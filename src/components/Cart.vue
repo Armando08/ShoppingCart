@@ -46,7 +46,6 @@ export default {
   },
   methods: {
     showDrawer() {
-      console.log(window.screen.width)
       if (window.screen.width <= 575) {
         this.$el.getElementsByClassName('sidenav')[0].style.width = '320px'
         return
