@@ -13,6 +13,13 @@
   max-height: 96%;
   overflow: auto;
   margin-top: 30px;
+  .empty-cart {
+    font-size: 17px;
+    color: #000;
+    line-height: 22px;
+    font-weight: 500;
+    margin-top: 50%;
+  }
 }
 .cart-image {
   width: 70px;

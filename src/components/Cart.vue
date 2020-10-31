@@ -24,6 +24,10 @@
           :cart-item="cartItem"
           :index="index"
         />
+        <div v-if="itemsQuantity === 0" class="empty-cart">
+          <img src="../assets/cart.png" />
+          <div>Your cart is empty 😞</div>
+        </div>
       </div>
     </div>
   </div>
