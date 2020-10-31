@@ -42,6 +42,7 @@ export default {
     onPageChange(page) {
       this.currentPage = page
       this.fetchData()
+      window.scrollTo(0, document.querySelector('body').scrollHeight)
     },
     selectItemPerpage(value) {
       this.itemPerPage = value

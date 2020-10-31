@@ -139,6 +139,11 @@
 }
 .add-to-favorite {
   flex: 1;
+  .icon-size:active {
+    width: 35px;
+    transition: width 0.3s ease-out;
+    transform: scale(2);
+  }
 }
 .add-to-cart {
   flex: 2;
