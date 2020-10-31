@@ -157,7 +157,7 @@ export default {
   },
   watch: {
     selectedItemPerpage() {
-      this.$emit('item-perPage', this.selectedItemPerpage)
+      this.$emit('item-per-page', this.selectedItemPerpage)
     },
   },
 }

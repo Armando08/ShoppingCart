@@ -4,22 +4,22 @@
       <img :src="itemImage" />
     </div>
     <div class="details">
-      <div class="title">{{ itemData.title }}</div>
+      <div class="title">{{ data.title }}</div>
       <div class="description">
-        {{ description(itemData.description) }}
+        {{ description(data.description) }}
       </div>
       <div class="prices">
         <div class="final-price">
-          {{ itemData.retail_price.formatted_value }}
+          {{ data.retailPrice.formatted_value }}
         </div>
-        <div class="strike-price" v-if="itemData.discount > 0">
+        <div class="strike-price" v-if="data.discount > 0">
           <span> € {{ netPriceCalculation() }} </span>
         </div>
       </div>
     </div>
     <div class="footer">
       <div class="add-to-cart">
-        <button class="add-to-cart-btn" @click="addToCart(itemData)">
+        <button class="add-to-cart-btn" @click="addToCart(data)">
           <span> Add to cart </span>
           <img
             src="../assets/svg/cart-plus-solid.svg"
@@ -30,9 +30,9 @@
       </div>
 
       <div class="add-to-favorite">
-        <span class="favorite-wrapper" @click="addToFavorite(itemData)">
+        <span class="favorite-wrapper" @click="addToFavorite(data.uuid)">
           <img
-            v-if="isAtFavorites(itemData)"
+            v-if="isAtFavorites(data)"
             src="../assets/svg/heart-solid.svg"
             alt="favorite"
             class="icon-size"
@@ -63,7 +63,7 @@ export default {
     }
   },
   props: {
-    itemData: {
+    data: {
       type: Object,
       required: true,
     },
@@ -71,28 +71,25 @@ export default {
   computed: {
     itemImage() {
       return (
-        this.itemData.cover_image_url +
+        this.data.coverImageUrl +
         `?q=${60}&fit=crop&w=${this.defaultImage.width}&h=${
           this.defaultImage.height
         }`
       )
     },
     ...mapGetters({
-      favorites: 'setToFavorites',
+      favorites: 'getFavorites',
     }),
   },
   methods: {
     addToCart(item) {
       this.$store.dispatch('addToCart', item)
     },
-    addToFavorite(item) {
-      this.$store.dispatch('setToFavorites', item.uuid)
+    addToFavorite(itemUUID) {
+      this.$store.dispatch('setToFavorites', itemUUID)
     },
     isAtFavorites(item) {
-      let exists = this.favorites.filter(
-        selectedUUID => selectedUUID === item.uuid
-      )
-      return exists.length > 0
+      return this.favorites.findIndex(favorite => favorite === item.uuid) > -1
     },
     description(itemDescription) {
       if (!itemDescription) return 'No Description !'
@@ -106,8 +103,8 @@ export default {
     },
     netPriceCalculation() {
       return (this.netPrice =
-        this.itemData.retail_price.value -
-        (this.itemData.retail_price.value * this.itemData.discount) / 100)
+        this.data.retailPrice.value -
+        (this.data.retailPrice.value * this.data.discount) / 100)
     },
   },
 }

@@ -20,7 +20,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      favorites: 'setToFavorites',
+      favorites: 'getFavorites',
     }),
   },
 }

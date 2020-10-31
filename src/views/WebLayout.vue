@@ -2,14 +2,14 @@
   <div class="home">
     <app-header />
     <div class="container">
-      <item v-for="item in this.itemData" :key="item.uuid" :itemData="item" />
+      <item v-for="item in this.itemData" :key="item.uuid" :data="item" />
       <pagination
-        :total-pages="getTotalPages"
+        :total-pages="totalPages"
         :total="totalItems"
         :per-page="itemPerPage"
         :current-page="currentPage"
         @page-changed="onPageChange"
-        @item-perPage="selectItemPerpage($event)"
+        @item-per-page="selectItemPerpage($event)"
       />
     </div>
     <app-footer />
@@ -70,8 +70,8 @@ export default {
             discount: item.discount,
             description: item.description,
             title: item.title,
-            cover_image_url: item.cover_image_url,
-            retail_price: item.retail_price,
+            coverImageUrl: item.cover_image_url,
+            retailPrice: item.retail_price,
             isFavorites: false,
             quantity: 1,
           }))
@@ -79,7 +79,7 @@ export default {
     },
   },
   computed: {
-    getTotalPages() {
+    totalPages() {
       return parseInt(Math.ceil(this.totalItems / this.itemPerPage))
     },
   },
