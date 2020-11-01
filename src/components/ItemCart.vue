@@ -97,9 +97,9 @@ export default {
         item: this.cartItem,
         quantity: parseInt(
           /^[0,-]/.test(this.cartItem.quantity) ? 1 : this.cartItem.quantity
-        )
+        ),
       })
-    }
+    },
   },
   computed: {
     itemImage() {
@@ -118,6 +118,6 @@ export default {
         2
       )
     },
-  }
+  },
 }
 </script>

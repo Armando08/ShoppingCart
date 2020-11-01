@@ -50,21 +50,19 @@ describe('Foo', () => {
 
   localVue.use(Vuex)
   describe('Actions.vue', () => {
-
     let actions
     let store
 
     beforeEach(() => {
       actions = {
         updateCart: jest.fn(),
-        addToCart: jest.fn()
+        addToCart: jest.fn(),
       }
       store = new Vuex.Store({
         actions,
       })
     })
     it('calls store action "actionClick" when button is clicked', () => {
-
       const wrapper = shallowMount(ItemCart, {
         propsData: {
           cartItem: {
@@ -79,7 +77,8 @@ describe('Foo', () => {
           },
           index: 0,
         },
-        store, localVue
+        store,
+        localVue,
       })
       console.log(wrapper)
     })

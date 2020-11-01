@@ -10,7 +10,7 @@ describe('Home Page', () => {
       response: [],
     })
   })
-  it('add to cart and favorite',() => {
+  it('add to cart and favorite', () => {
     cy.get('.add-to-cart')
       .first()
       .click()
@@ -34,6 +34,5 @@ describe('Home Page', () => {
       .last()
       .click()
     cy.get('.favorites > .badge').should('contain', 1)
-    
   })
 })

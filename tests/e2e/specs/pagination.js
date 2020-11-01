@@ -1,4 +1,3 @@
-
 // https://docs.cypress.io/api/introduction/api.html
 
 describe('Cart', () => {
@@ -17,22 +16,19 @@ describe('Cart', () => {
     cy.get(':nth-child(5) > button').click()
     cy.get(':nth-child(5) > button').click()
     cy.get(':nth-child(2) > button > span').click()
-    cy.get('.pagination-browse > span')
-      .should('contain', ' Page: 5 / 2467')
+    cy.get('.pagination-browse > span').should('contain', ' Page: 5 / 2467')
     cy.get('.pagination > :nth-child(1) > button').click()
-    cy.get('.pagination-browse > span')
-      .should('contain', 'Page: 1 / 2467')
+    cy.get('.pagination-browse > span').should('contain', 'Page: 1 / 2467')
     cy.get(':nth-child(8) > button').click()
-    cy.get('.pagination-browse > span')
-      .should('contain', 'Page: 2 / 2467')
+    cy.get('.pagination-browse > span').should('contain', 'Page: 2 / 2467')
     cy.get(':nth-child(9) > button').click()
-    cy.get('.pagination-browse > span')
-      .should('contain', 'Page: 2467 / 2467')
+    cy.get('.pagination-browse > span').should('contain', 'Page: 2467 / 2467')
     cy.get('.pagination > :nth-child(1) > button').click()
-    cy.get('select').select('12').should('have.value', '12')
+    cy.get('select')
+      .select('12')
+      .should('have.value', '12')
     cy.get('.container')
       .find('.product-card')
       .should('have.length', 12)
   })
 })
-
