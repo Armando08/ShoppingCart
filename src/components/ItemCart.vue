@@ -6,7 +6,7 @@
     <div class="details-side">
       <div class="info-wrapper">
         <div class="name">{{ cartItem.title }}</div>
-        <span class="price">€ {{ cartItem.retailPrice.value.toFixed(2) }}</span>
+        <span class="price">€ {{ price }}</span>
         <div class="quantity">
           <span class="input-group-btn">
             <button
@@ -97,9 +97,9 @@ export default {
         item: this.cartItem,
         quantity: parseInt(
           /^[0,-]/.test(this.cartItem.quantity) ? 1 : this.cartItem.quantity
-        ),
+        )
       })
-    },
+    }
   },
   computed: {
     itemImage() {
@@ -110,11 +110,14 @@ export default {
         }`
       )
     },
+    price() {
+      return parseFloat(this.cartItem.retailPrice.value).toFixed(2)
+    },
     totalItemPrice() {
       return (this.cartItem.quantity * this.cartItem.retailPrice.value).toFixed(
         2
       )
     },
-  },
+  }
 }
 </script>
