@@ -11,7 +11,19 @@ describe('Home Page', () => {
     })
   })
   it('add to cart and favorite',() => {
-    cy.contains('Add to cart').click()
+    cy.get('.add-to-cart')
+      .first()
+      .click()
+
+    cy.get('.add-to-cart')
+      .last()
+      .dblclick()
+    cy.get('.cart > .badge').should('contain', 3)
+    cy.get('.cart').click()
+    cy.get('input')
+      .first()
+      .should('have.value', '2')
+    cy.get('.close-btn').click()
     cy.get('.add-to-favorite')
       .first()
       .click()
@@ -21,6 +33,7 @@ describe('Home Page', () => {
     cy.get('.add-to-favorite')
       .last()
       .click()
+    cy.get('.favorites > .badge').should('contain', 1)
     
   })
 })
