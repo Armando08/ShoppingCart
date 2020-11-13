@@ -2,7 +2,12 @@
   <div class="home">
     <app-header />
     <div class="container">
-      <item v-for="item in this.itemData" :key="item.uuid" :data="item" />
+      <item
+        v-for="item in this.responseData"
+        :key="item.uuid"
+        :data="item"
+        v-lazy="loading"
+      />
       <pagination
         :total-pages="totalPages"
         :total="totalItems"
@@ -32,14 +37,19 @@ export default {
   data() {
     return {
       responseData: [],
-      itemData: [],
       currentPage: 1,
       itemPerPage: 6,
       totalItems: 0,
+      offset: 0,
     }
   },
   methods: {
+    handler({ el, src }, formCache) {
+      console.log(formCache)
+      console.log(el, src)
+    },
     onPageChange(page) {
+      this.offset = (page - 1) * this.itemPerPage
       this.currentPage = page
       this.fetchData()
       window.scrollTo(0, document.querySelector('body').scrollHeight)
@@ -50,7 +60,7 @@ export default {
     },
     fetchData() {
       fetch(
-        `https://api.musement.com/api/v3/activities?limit=${this.itemPerPage}&offset=${this.currentPage}`,
+        `https://api.musement.com/api/v3/activities?limit=${this.itemPerPage}&offset=${this.offset}`,
         {
           method: 'GET',
           headers: {
@@ -63,9 +73,10 @@ export default {
       )
         .then(response => response.json())
         .then(response => {
+
           this.totalItems = response.meta.count
-          this.responseData = response.data
-          this.itemData = this.responseData.map(item => ({
+          let apiResponse = response.data
+          this.responseData = apiResponse.map(item => ({
             uuid: item.uuid,
             discount: item.discount,
             description: item.description,
@@ -84,6 +95,8 @@ export default {
     },
   },
   mounted() {
+    this.$Lazyload.$on('loading', this.handler)
+
     this.fetchData()
   },
 }
