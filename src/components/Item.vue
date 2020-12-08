@@ -1,7 +1,7 @@
 <template>
   <div class="product-card">
     <div class="image">
-      <img :src="itemImage" />
+      <img v-lazy="itemImage" />
     </div>
     <div class="details">
       <div class="title">{{ data.title }}</div>
