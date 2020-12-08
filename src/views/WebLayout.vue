@@ -2,12 +2,7 @@
   <div class="home">
     <app-header />
     <div class="container">
-      <item
-        v-for="item in this.responseData"
-        :key="item.uuid"
-        :data="item"
-        v-lazy="loading"
-      />
+      <item v-for="item in this.responseData" :key="item.uuid" :data="item" />
       <pagination
         :total-pages="totalPages"
         :total="totalItems"
@@ -41,13 +36,10 @@ export default {
       itemPerPage: 6,
       totalItems: 0,
       offset: 0,
+      showComponent: false,
     }
   },
   methods: {
-    handler({ el, src }, formCache) {
-      console.log(formCache)
-      console.log(el, src)
-    },
     onPageChange(page) {
       this.offset = (page - 1) * this.itemPerPage
       this.currentPage = page
@@ -73,7 +65,6 @@ export default {
       )
         .then(response => response.json())
         .then(response => {
-
           this.totalItems = response.meta.count
           let apiResponse = response.data
           this.responseData = apiResponse.map(item => ({
@@ -95,8 +86,6 @@ export default {
     },
   },
   mounted() {
-    this.$Lazyload.$on('loading', this.handler)
-
     this.fetchData()
   },
 }

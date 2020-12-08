@@ -1,9 +1,7 @@
 <template>
   <div class="product-card">
     <div class="image">
-      <img :src="itemImage" lazy="loaded" />
-
-<!--      <img v-lazy="itemImage" />-->
+      <img v-lazy="itemImage" />
     </div>
     <div class="details">
       <div class="title">{{ data.title }}</div>
@@ -81,12 +79,7 @@ export default {
     },
     ...mapGetters({
       favorites: 'getFavorites',
-    }), },
-  mounted() {
-    console.log(this.$Lazyload)
-    this.$Lazyload.$on('loaded', function ({  el,    src,  }) {
-      console.log(el, src)
-    })
+    }),
   },
   methods: {
     addToCart(item) {
@@ -116,16 +109,3 @@ export default {
   },
 }
 </script>
-<style>
-  img[lazy=loading] {
-    width: 200px;
-    height: 153px;
-    filter: blur(10px);
-  }
-
-  img[lazy=loaded] {
-    width: 200px;
-    height: 153px;
-    filter: blur(0px);
-  }
-</style>
