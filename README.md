@@ -1,5 +1,8 @@
-# js_challenge_armando-muceku
+## Shopping Cart Actions With Vuex 
+## Responsive UI 
+## Performace Optimization
 
+____________________________________
 ## Project setup
 ```
 npm install
