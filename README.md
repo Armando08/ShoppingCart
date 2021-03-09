@@ -1,6 +1,7 @@
 ## Shopping Cart Actions With Vuex 
 ## Responsive UI 
 ## Performace Optimization
+## E2E Component Testing (Cypress)
 
 ____________________________________
 ## Project setup
