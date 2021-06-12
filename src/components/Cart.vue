@@ -36,6 +36,7 @@
 <script>
 import ItemCart from '../components/ItemCart'
 import { mapGetters } from 'vuex'
+
 export default {
   name: 'Cart',
   components: {

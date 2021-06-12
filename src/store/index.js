@@ -12,11 +12,8 @@ export default new Vuex.Store({
   mutations: {
     ADD_TO_CART(state, item) {
       const record = state.cart.find(product => product.uuid === item.uuid)
-      if (!record) {
-        state.cart.unshift(item)
-      } else {
-        record.quantity++
-      }
+      if (!record) state.cart.unshift(item)
+      else record.quantity++
     },
     SET_TO_FAVORITES(state, itemUUID) {
       let selectedIndex = state.favorites.findIndex(

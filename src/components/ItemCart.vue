@@ -96,7 +96,7 @@ export default {
       this.$store.dispatch('updateCart', {
         item: this.cartItem,
         quantity: parseInt(
-          /^[0,-]/.test(this.cartItem.quantity) ? 1 : this.cartItem.quantity
+          /^[0,-]/.test(this.cartItem.quantity) ? 1+'' : this.cartItem.quantity
         ),
       })
     },

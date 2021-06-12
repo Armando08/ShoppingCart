@@ -1,12 +1,13 @@
 <template>
   <div class="home">
-    <app-header />
+    <app-header @limit="fetchDataWithIconParam" />
     <div class="container">
       <item v-for="item in this.responseData" :key="item.uuid" :data="item" />
       <pagination
         :total-pages="totalPages"
         :total="totalItems"
         :per-page="itemPerPage"
+        :is-icon-clicked="isClickFromIcon"
         :current-page="currentPage"
         @page-changed="onPageChange"
         @item-per-page="selectItemPerpage($event)"
@@ -37,6 +38,7 @@ export default {
       totalItems: 0,
       offset: 0,
       showComponent: false,
+      isClickFromIcon: false,
     }
   },
   methods: {
@@ -50,9 +52,18 @@ export default {
       this.itemPerPage = value
       this.fetchData()
     },
-    fetchData() {
+    fetchDataWithIconParam(param) {
+      this.fetchData(param)
+    },
+    fetchData(iconParam) {
+      iconParam !== undefined
+        ? (this.isClickFromIcon = true)
+        : (this.isClickFromIcon = false)
+
       fetch(
-        `https://api.musement.com/api/v3/activities?limit=${this.itemPerPage}&offset=${this.offset}`,
+        `https://api.musement.com/api/v3/activities?limit=${
+          this.itemPerPage
+        }&offset=${iconParam === undefined ? this.offset : iconParam}`,
         {
           method: 'GET',
           headers: {
@@ -66,7 +77,7 @@ export default {
         .then(response => response.json())
         .then(response => {
           this.totalItems = response.meta.count
-          let apiResponse = response.data
+          const apiResponse = response.data
           this.responseData = apiResponse.map(item => ({
             uuid: item.uuid,
             discount: item.discount,

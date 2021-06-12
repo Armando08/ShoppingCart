@@ -1,4 +1,4 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils'
+import { createLocalVue, shallowMount } from '@vue/test-utils'
 import ItemCart from '@/components/ItemCart.vue'
 import Vuex from 'vuex'
 

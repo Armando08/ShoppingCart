@@ -98,15 +98,15 @@ export default {
       type: Number,
       required: true,
     },
+    isIconClicked: {
+      type: Boolean,
+      required: false,
+    },
   },
   computed: {
     startPage() {
       if (this.currentPage === 1) {
         return 1
-      }
-
-      if (this.currentPage === this.totalPages) {
-        return this.totalPages - this.maxVisibleButtons + 1
       }
 
       return this.currentPage - 1
@@ -159,6 +159,9 @@ export default {
     selectedItemPerpage() {
       this.$emit('item-per-page', this.selectedItemPerpage)
     },
+    isIconClicked() {
+      this.$emit('page-changed', 1)
+    }
   },
 }
 </script>
